@@ -2,7 +2,6 @@
 Note this file contains _NO_ flask functionality.
 Instead it makes a file that takes the input dictionary Flask gives us,
 and returns the desired result.
-
 This allows us to test if our modeling is working, without having to worry
 about whether Flask is working. A short check is run at the bottom of the file.
 """
@@ -63,14 +62,14 @@ def clean_word(text):
     text = replace_numbers.sub('', text)
     return text
 
-# model_dict is the collection of extra tree models 
+# model_dict is the collection of extra tree models
 
 model_dict = joblib.load('./static/models/models.p')
 
 word_vectorizer = joblib.load('static/models/word_vectorizer.p')
 
 def raw_chat_to_model_input(raw_input_string):
-    
+
     cleaned_text = []
     for text in [raw_input_string]:
         cleaned_text.append(clean_word(text))
@@ -88,10 +87,8 @@ def make_prediction(input_chat):
     """
     Input:
     feature_dict: a dictionary of the form {"feature_name": "value"}
-
     Function makes sure the features are fed to the model in the same order the
     model expects them.
-
     Output:
     Returns (x_inputs, probs) where
       x_inputs: a list of feature values in the order they appear in the model
